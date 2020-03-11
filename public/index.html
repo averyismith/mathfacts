@@ -28,5 +28,59 @@
       <img class="absolute inset-0 h-full w-full object-cover object-center" src="/img/beach-work.jpg" alt="Woman workcationing on the beach">
     </div>
   </div>
+  <div class="mx-auto max-w-xs mt-10">
+    <form
+      class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      action="/.netlify/functions/emoji"
+      method="get">
+      <div class="flex items-center justify-between">
+        <button
+          class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit">
+          Try it
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <section class="mt-10">
+    <h2 class="font-medium text-xl">Response:</h2>
+
+    <div class="max-w-sm text-xs">
+      <code>
+        <pre id="response-area">
+        </pre>
+      </code>
+    </div>
+  </section>
+  <script>
+    (function () {
+      function getFieldValue(form, field) {
+        return form[field].value
+      }
+      const form = document.querySelector('form');
+      const responseArea = document.querySelector('#response-area');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const url = form.action;
+        const verb = (form.method || 'post').toUpperCase();
+        fetch(url, {
+          method: verb,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then(function (res) {
+          if(res.ok) {
+            return res.json();
+          }
+          throw new Error('Network response was not ok.');
+        }).then(function(json) {
+          responseArea.innerText = JSON.stringify(json, null, 2);
+        }).catch(function (error) {
+          responseArea.innerText = error.message
+        })
+      })
+    })()
+  </script>
 </body>
 </html>
