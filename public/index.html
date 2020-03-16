@@ -36,7 +36,11 @@
         
             <div class="max-w-sm text-xs h-20">
               <code>
-                <pre id="response-area">
+                <pre class="bg-green-500 text-white font-bold py-2 w-10 text-center rounded" id="response-area-x">x
+                </pre>
+                <pre class="bg-orange-500 text-white font-bold py-2 w-10 text-center rounded" id="response-area-y">y
+                </pre>
+                <pre class="bg-red-500 text-white font-bold py-2 w-10 text-center rounded" id="response-area-p">p
                 </pre>
               </code>
             </div>
@@ -59,7 +63,9 @@
         return form[field].value
       }
       const form = document.querySelector('form');
-      const responseArea = document.querySelector('#response-area');
+      const responseAreaX = document.querySelector('#response-area-x');
+      const responseAreaY = document.querySelector('#response-area-y');
+      const responseAreaP = document.querySelector('#response-area-p');
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         const url = form.action;
@@ -75,7 +81,9 @@
           }
           throw new Error('Network response was not ok.');
         }).then(function(json) {
-          responseArea.innerText = JSON.stringify(json, null, 2);
+          responseAreaX.innerText = JSON.stringify(json.x, null, 2);
+          responseAreaY.innerText = JSON.stringify(json.y, null, 2);
+          responseAreaP.innerText = JSON.stringify(json.p, null, 2);
         }).catch(function (error) {
           responseArea.innerText = error.message
         })
