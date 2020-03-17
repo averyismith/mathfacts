@@ -3,92 +3,87 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <link rel="stylesheet" href="/styles.css">
+  <title>Math Facts</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gray-300">
-  <div class="bg-gray-100 flex">
-    <div class="px-8 py-12 max-w-md mx-auto sm:max-w-xl lg:max-w-full lg:w-1/2 lg:py-24 lg:px-12">
-      <div class="xl:max-w-lg xl:ml-auto">
-        <img class="h-10" src="/img/logo.svg" alt="Workcation">
-        <img class="mt-6 rounded-lg shadow-xl sm:mt-8 sm:h-64 sm:w-full sm:object-cover sm:object-center lg:hidden" src="/img/beach-work.jpg" alt="Woman workcationing on the beach">
-        <h1 class="mt-6 text-2xl font-bold text-gray-900 leading-tight sm:mt-8 sm:text-4xl lg:text-3xl xl:text-4xl">
-          You can work from anywhere.
-          <br class="hidden lg:inline"><span class="text-indigo-500">Take advantage of it.</span>
-        </h1>
-        <p class="mt-2 text-gray-600 sm:mt-4 sm:text-xl">
-          Workcation helps you find work-friendly rentals in beautiful locations so you can enjoy some nice weather even when you're not on vacation.
-        </p>
-        <div class="mt-4 sm:mt-6">
-          <form
-          class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-          action="/.netlify/functions/mathfacts"
-          method="get">
-          <div class="flex items-center justify-between">
-            <button
-              class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit">
-              Try it
-            </button>
-          </div>
-          <section class="mt-10">
-            <h2 class="font-medium text-xl">Response:</h2>
-        
-            <div class="max-w-sm text-xs h-20">
-              <code>
-                <pre class="bg-green-500 text-white font-bold py-2 w-10 text-center rounded" id="response-area-x">
-                </pre>
-                <pre class="bg-orange-500 text-white font-bold py-2 w-10 text-center rounded" id="response-area-y">
-                </pre>
-                <pre class="bg-red-500 text-white font-bold py-2 w-10 text-center rounded" id="response-area-p">
-                </pre>
-              </code>
+    <div class="bg-blue-200 flex">
+        <div class="h-16 text-6xl">
+            <div class="flex flex-row bg-red-200 px-8 py-12 w-screen">
+                <div class="text-gray-700 text-center bg-gray-400 px-4 py-2 m-2 w-32 h-32">
+                    <span id="response-area-left"></span>
+                </div>
+                <div class="text-gray-700 text-center px-4 py-2 m-2 w-32 h-32">
+                    <span>x</span>
+                </div>
+                <div class="text-gray-700 text-center bg-gray-400 px-4 py-2 m-2 w-32 h-32">
+                    <span id="response-area-right"></span>
+                </div>
+                <div class="text-gray-700 text-center px-4 py-2 m-2 w-32 h-32">
+                    <span>=</span>
+                </div>
+                <div class="text-gray-700 text-center bg-gray-400 px-4 py-2 m-2 w-48 h-32">
+                    <span id="response-area-product">
+                        <input class="py-2 w-32 text-center" id="answerText" type="text"/>
+                    </span>
+                    <span class="py-12 text-lg" id="result"></span>
+                </div>
+                <div class="text-gray-700 text-center px-4 py-2 m-2">
+                    <span id="response-area-product">
+                        <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            onclick="setup()">
+                            Start
+                        </button>
+                    </span>
+                </div>
+                <div class="text-gray-700 text-center px-4 py-2 m-2">
+                    <span id="response-area-product">
+                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            onclick="check()">
+                            Check
+                        </button>
+                    </span>
+                </div>
             </div>
-          </section>
-        </form>
         </div>
-        
-      </div>
     </div>
-    <div class="hidden lg:block lg:w-1/2 lg:relative">
-      <img class="absolute inset-0 h-full w-full object-cover object-center" src="/img/beach-work.jpg" alt="Woman workcationing on the beach">
-    </div>
-  </div>
 
+    <script>
+        const responseAreaLeft = document.querySelector('#response-area-left');
+        const responseAreaRight = document.querySelector('#response-area-right');
+        const responseAnswer = document.querySelector('#answerText');
+        const resultArea = document.querySelector('#result');
+        var problem = null;
 
-  
-  <script>
-    (function () {
-      function getFieldValue(form, field) {
-        return form[field].value
-      }
-      const form = document.querySelector('form');
-      const responseAreaX = document.querySelector('#response-area-x');
-      const responseAreaY = document.querySelector('#response-area-y');
-      const responseAreaP = document.querySelector('#response-area-p');
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const url = form.action;
-        const verb = (form.method || 'post').toUpperCase();
-        fetch(url, {
-          method: verb,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }).then(function (res) {
-          if(res.ok) {
-            return res.json();
-          }
-          throw new Error('Network response was not ok.');
-        }).then(function(json) {
-          responseAreaX.innerText = JSON.stringify(json.x, null, 2);
-          responseAreaY.innerText = JSON.stringify(json.y, null, 2);
-          responseAreaP.innerText = JSON.stringify(json.p, null, 2);
-        }).catch(function (error) {
-          responseArea.innerText = error.message
-        })
-      })
-    })()
-  </script>
+        function check() {
+            if(responseAnswer.value == problem.product) {
+                console.log("Correct!");
+                resultArea.innerHTML = "Correct!";
+            } else {
+                console.log ("Try Again!");
+                resultArea.innerHTML = "Try Again!";
+            }
+        }
+
+        function setup() {
+           problem = random();
+            responseAreaLeft.innerHTML = problem.left;
+            responseAreaRight.innerHTML = problem.right;
+            responseAnswer.value = "";
+            resultArea.innerHTML = "";
+        }
+
+        function random() {
+            var left = Math.floor(Math.random() * 12) + 1;
+            var right = Math.floor(Math.random() * 12) + 1;
+            var product = left * right;
+
+            return {
+                left: left,
+                right: right,
+                product: product
+            }
+        }
+    </script>
 </body>
 </html>
