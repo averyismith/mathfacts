@@ -6,10 +6,10 @@
   <title>Math Facts</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gray-300">
+<body onload="setup()" class="bg-blue-500">
     <div class="bg-blue-200 flex">
         <div class="h-16 text-6xl">
-            <div class="flex flex-row bg-red-200 px-8 py-12 w-screen">
+            <div class="flex flex-row bg-blue-200 px-8 py-12 w-screen">
                 <div class="text-gray-700 text-center bg-gray-400 px-4 py-2 m-2 w-32 h-32">
                     <span id="response-area-left"></span>
                 </div>
@@ -26,16 +26,9 @@
                     <span id="response-area-product">
                         <input class="py-2 w-32 text-center" id="answerText" type="text"/>
                     </span>
-                    <span class="py-12 text-lg" id="result"></span>
+                    <span class="py-12 text-2xl" id="result"></span> 
                 </div>
-                <div class="text-gray-700 text-center px-4 py-2 m-2">
-                    <span id="response-area-product">
-                        <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            onclick="setup()">
-                            Start
-                        </button>
-                    </span>
-                </div>
+                
                 <div class="text-gray-700 text-center px-4 py-2 m-2">
                     <span id="response-area-product">
                         <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -53,15 +46,17 @@
         const responseAreaRight = document.querySelector('#response-area-right');
         const responseAnswer = document.querySelector('#answerText');
         const resultArea = document.querySelector('#result');
-        var problem = null;
+        var problem = null; 
+        var lion = null;
 
         function check() {
             if(responseAnswer.value == problem.product) {
                 console.log("Correct!");
                 resultArea.innerHTML = "Correct!";
+                lion = setInterval(setup, 5000);
             } else {
                 console.log ("Try Again!");
-                resultArea.innerHTML = "Try Again!";
+                resultArea.innerHTML = "Try Again! &#128169;";
             }
         }
 
@@ -71,6 +66,7 @@
             responseAreaRight.innerHTML = problem.right;
             responseAnswer.value = "";
             resultArea.innerHTML = "";
+            clearInterval(lion);
         }
 
         function random() {
