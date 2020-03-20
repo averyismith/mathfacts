@@ -8,80 +8,75 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body onload="setup()" class="bg-blue-500">
-    <div class="bg-blue-200 flex">
-        <div class="h-16 text-6xl">
-            <div class="flex flex-row bg-blue-200 px-8 py-12 w-screen">
-                <div class="text-gray-700 text-center bg-gray-400 px-4 py-2 m-2 w-32 h-32">
-                    <span id="response-area-left"></span>
-                </div>
-                <div class="text-gray-700 text-center px-4 py-2 m-2 w-32 h-32">
-                    <span>x</span>
-                </div>
-                <div class="text-gray-700 text-center bg-gray-400 px-4 py-2 m-2 w-32 h-32">
-                    <span id="response-area-right"></span>
-                </div>
-                <div class="text-gray-700 text-center px-4 py-2 m-2 w-32 h-32">
-                    <span>=</span>
-                </div>
-                <div class="text-gray-700 text-center bg-gray-400 px-4 py-2 m-2 w-48 h-32">
-                    <span id="response-area-product">
-                        <input class="py-2 w-32 text-center" id="answerText" type="text"/>
-                    </span>
-                    <span class="py-12 text-2xl" id="result"></span> 
-                </div>
-                
-                <div class="text-gray-700 text-center px-4 py-2 m-2">
-                    <span id="response-area-product">
-                        <button id="check" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            onclick="check()">
-                            Check
-                        </button>
-                    </span>
-                </div>
-            </div>
+    <div class="bg-white sm:flex">
+        <div class="px-6 py-8 bg-teal-600">
+            <span id="response-area-left" class="px-8 py-5 rounded-lg bg-white text-2xl font-bold">3</span>
+        </div>
+        <div class="px-6 py-8 bg-teal-600">
+            <span class="px-8 py-0 text-2xl font-bold">x</span>
+        </div>
+        <div class="px-6 py-8 bg-teal-600">
+            <span id="response-area-right" class="px-8 py-5 rounded-lg bg-white text-2xl font-bold">3</span>
+        </div>
+        <div class="px-6 py-8 bg-teal-600">
+            <span class="px-8 py-0 text-2xl font-bold">=</span>
+        </div>
+        <div class="px-6 py-8 bg-teal-600">
+            <span id="response-area-product">
+                <input class="py-2 w-32 text-center" id="answerText" type="text"/>
+            </span>
+            <span class="py-12 text-2xl" id="result"></span>
+        </div>
+        <div class="px-6 py-8 bg-teal-600">
+            <span id="response-area-product">
+                <button id="check" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    onclick="check()">
+                    Check
+                </button>
+            </span>
         </div>
     </div>
-
-    <script>
-
-        const responseAreaLeft = document.querySelector('#response-area-left');
-        const responseAreaRight = document.querySelector('#response-area-right');
-        const responseAnswer = document.querySelector('#answerText');
-        const resultArea = document.querySelector('#result');
-        var problem = null; 
-        var lion = null;
-
-        function check() {
-            if(responseAnswer.value == problem.product) {
-                console.log("Correct!");
-                resultArea.innerHTML = "Correct!";
-                lion = setInterval(setup, 5000);
-            } else {
-                console.log ("Try Again!");
-                resultArea.innerHTML = "Try Again! &#128169;";
-            }
-        }
-
-        function setup() {
-           problem = random();
-            responseAreaLeft.innerHTML = problem.left;
-            responseAreaRight.innerHTML = problem.right;
-            responseAnswer.value = "";
-            resultArea.innerHTML = "";
-            clearInterval(lion);
-        }
-
-        function random() {
-            var left = Math.floor(Math.random() * 12) + 1;
-            var right = Math.floor(Math.random() * 12) + 1;
-            var product = left * right;
-
-            return {
-                left: left,
-                right: right,
-                product: product
-            }
-        }
-    </script>
 </body>
+<script>
+
+    const responseAreaLeft = document.querySelector('#response-area-left');
+    const responseAreaRight = document.querySelector('#response-area-right');
+    const responseAnswer = document.querySelector('#answerText');
+    const resultArea = document.querySelector('#result');
+    var problem = null; 
+    var lion = null;
+
+    function check() {
+        if(responseAnswer.value == problem.product) {
+            console.log("Correct!");
+            resultArea.innerHTML = "Correct!";
+            lion = setInterval(setup, 5000);
+        } else {
+            console.log ("Try Again!");
+            resultArea.innerHTML = "Try Again! &#128169;";
+        }
+    }
+
+    function setup() {
+       problem = random();
+        responseAreaLeft.innerHTML = problem.left;
+        responseAreaRight.innerHTML = problem.right;
+        responseAnswer.value = "";
+        resultArea.innerHTML = "";
+        clearInterval(lion);
+    }
+
+    function random() {
+        var left = Math.floor(Math.random() * 12) + 1;
+        var right = Math.floor(Math.random() * 12) + 1;
+        var product = left * right;
+
+        return {
+            left: left,
+            right: right,
+            product: product
+        }
+    }
+</script>
+
 </html>
