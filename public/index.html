@@ -8,34 +8,39 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body onload="setup()" class="bg-blue-500">
-    <div class="bg-white sm:flex">
+    <div class="bg-teal-600 sm:flex py-10">
         <div class="px-6 py-8 bg-teal-600">
             <span id="response-area-left" class="px-8 py-5 rounded-lg bg-white text-2xl font-bold">3</span>
         </div>
-        <div class="px-6 py-8 bg-teal-600">
-            <span class="px-8 py-0 text-2xl font-bold">x</span>
-        </div>
-        <div class="px-6 py-8 bg-teal-600">
-            <span id="response-area-right" class="px-8 py-5 rounded-lg bg-white text-2xl font-bold">3</span>
-        </div>
-        <div class="px-6 py-8 bg-teal-600">
-            <span class="px-8 py-0 text-2xl font-bold">=</span>
+        <div class="px-6 py-3 md:py-8 bg-teal-600">
+        <span class="px-8 py-0 text-2xl font-bold">x</span>
+    </div>
+    <div class="px-6 py-8 bg-teal-600">
+        <span id="response-area-right" class="px-8 py-5 rounded-lg bg-white text-2xl font-bold">3</span>
+    </div>
+    <div class="px-6 py-3 md:py-8 bg-teal-600">
+            <span class="hidden md:inline-block px-8 py-0 text-2xl font-bold">=</span>
+            <span class="md:hidden px-12 py-0 border-b-2 border-black"></span>
         </div>
         <div class="px-6 py-8 bg-teal-600">
             <span id="response-area-product">
-                <input class="py-2 w-32 text-center" id="answerText" type="text"/>
+                <input class="py-2 w-20 text-center" id="answerText" type="text"/>
             </span>
-            <span class="py-12 text-2xl" id="result"></span>
+            <span class="py-12 text-2xl px-8" id="result"></span>
         </div>
         <div class="px-6 py-8 bg-teal-600">
             <span id="response-area-product">
-                <button id="check" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                <button id="check" class="bg-red-500 hover:bg-red-700 md:text-4xl text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     onclick="check()">
                     Check
                 </button>
             </span>
         </div>
     </div>
+    <div class="hidden md:block my-10 xl:my-24">
+        <div class="max-w-lg mx-auto"><img src="img/cat.png"></div>
+    </div>
+    
 </body>
 <script>
 
